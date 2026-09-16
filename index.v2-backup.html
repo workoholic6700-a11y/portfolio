@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       SEO / SOCIAL PREVIEW
+       EDIT: update og:url once the site has a real domain.
+       ============================================================ -->
+  <title>Diksha Themnuhang — App &amp; Web Developer</title>
+  <meta name="description" content="Diksha Themnuhang — app and web developer. Three mobile apps on the App Store and Google Play, two institutional websites built from scratch, and Moodle platforms behind them." />
+  <meta name="author" content="Diksha Themnuhang" />
+  <meta property="og:title" content="Diksha Themnuhang — App &amp; Web Developer" />
+  <meta property="og:description" content="Three mobile apps shipped to the App Store and Google Play. Two institutional websites built from scratch. The Moodle platforms behind them." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:image" content="assets/diksha.png" />
+
+  <!-- Favicon drawn inline as an SVG — no extra file to manage -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230e6b73'/><text x='50' y='69' font-size='50' font-family='system-ui,sans-serif' font-weight='700' fill='white' text-anchor='middle'>DT</text></svg>" />
+
+<style>
+/* ==============================================================
+   1. DESIGN TOKENS
+   Every colour and size lives here. Change these to re-skin the
+   whole site. The accent teal is picked out of the photo.
+   ============================================================== */
+
+:root {
+  /* Light theme */
+  --bg:          #faf9f6;   /* warm paper, not clinical white */
+  --bg-elevated: #ffffff;
+  --bg-sunken:   #f1efe9;
+  --text:        #15181a;
+  --text-muted:  #5a6367;
+  --text-faint:  #8b9296;
+  --line:        #e3e0d8;
+  --line-strong: #cfcbc0;
+  --accent:      #0e6b73;
+  --accent-hover:#0a5158;
+  --accent-wash: #dff0f0;
+  --gold:        #9a6b1f;   /* used only for "built from scratch" marks */
+  --gold-wash:   #f6ecd8;
+  --on-accent:   #ffffff;
+  --shadow-sm:   0 1px 2px rgba(20, 26, 28, .05);
+  --shadow-md:   0 6px 18px rgba(20, 26, 28, .08);
+  --shadow-lg:   0 22px 50px rgba(20, 26, 28, .13);
+
+  /* Sizes (not theme-dependent) */
+  --rail-w:    350px;
+  --radius-sm: 8px;
+  --radius:    14px;
+  --radius-lg: 20px;
+
+  /* Fluid type scale — clamp() means almost no font-size media queries */
+  --step--2: clamp(.72rem, .7rem + .1vw, .78rem);
+  --step--1: clamp(.83rem, .8rem + .14vw, .9rem);
+  --step-0:  clamp(.97rem, .94rem + .18vw, 1.05rem);
+  --step-1:  clamp(1.15rem, 1.08rem + .35vw, 1.35rem);
+  --step-2:  clamp(1.45rem, 1.3rem + .8vw, 1.9rem);
+  --step-3:  clamp(1.9rem, 1.6rem + 1.5vw, 2.6rem);
+  --step-4:  clamp(2.2rem, 1.85rem + 1.9vw, 3.1rem);
+}
+
+[data-theme="dark"] {
+  --bg:          #0f1213;
+  --bg-elevated: #171b1d;
+  --bg-sunken:   #0a0d0e;
+  --text:        #eceeed;
+  --text-muted:  #9aa3a5;
+  --text-faint:  #6e7779;
+  --line:        #262b2d;
+  --line-strong: #39403f;
+  --accent:      #47c4c0;
+  --accent-hover:#7adbd6;
+  --accent-wash: #0f302f;
+  --gold:        #d9b168;
+  --gold-wash:   #2c2411;
+  --on-accent:   #04211f;
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md:   0 6px 20px rgba(0, 0, 0, .45);
+  --shadow-lg:   0 24px 55px rgba(0, 0, 0, .6);
+}
+
+/* ==============================================================
+   2. RESET + BASE
+   ============================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .35s ease, color .35s ease;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; color: inherit; }
+ul { list-style: none; padding: 0; }
+
+h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -.02em; font-weight: 650; }
+h1 { font-size: var(--step-4); letter-spacing: -.035em; }
+h2 { font-size: var(--step-3); letter-spacing: -.03em; }
+h3 { font-size: var(--step-1); }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, monospace;
+  font-size: .87em; padding: 1px 6px;
+  background: var(--bg-sunken); border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.skip-link:focus {
+  position: fixed; top: 12px; left: 12px; width: auto; height: auto; clip: auto;
+  z-index: 999; padding: 10px 18px;
+  background: var(--accent); color: var(--on-accent); border-radius: var(--radius-sm);
+}
+
+/* ==============================================================
+   3. THE SHELL — fixed left rail + scrolling content
+   This is the core of the layout. On desktop the rail stays put
+   while the right column scrolls; below 1024px they stack.
+   ============================================================== */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  max-width: 1500px;
+  margin-inline: auto;
+}
+
+.rail {
+  /* align-self:start is what lets position:sticky actually stick —
+     without it the grid item stretches to the full row height. */
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  height: 100svh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 34px 30px;
+  border-right: 1px solid var(--line);
+  background: var(--bg-sunken);
+}
+
+/* CRITICAL: flex items shrink by default. Because the rail is a fixed
+   100vh column, anything taller than the viewport gets compressed —
+   which silently squashed the portrait flat and cropped the face off.
+   flex:none makes each block keep its natural height and lets the rail
+   scroll instead. Do not remove these. */
+.portrait, .rail-who, .rail-nav, .rail-foot { flex: none; }
+
+.content {
+  min-width: 0;                       /* stops long URLs blowing out the grid */
+  max-width: 940px;                   /* stops lines running too long on wide screens */
+  margin-inline: auto;
+  padding: 0 clamp(26px, 4vw, 68px);
+}
+
+/* ---- Rail contents ---- */
+
+.portrait {
+  width: 100%;
+  /* The source photo is 268x322. Kept well under that so it stays sharp,
+     and so the whole rail fits a laptop screen without scrolling. */
+  max-width: 194px;
+  aspect-ratio: 268 / 322;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+  background: var(--bg-elevated);
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+.rail-name { font-size: 1.55rem; letter-spacing: -.03em; line-height: 1.15; }
+.rail-role {
+  color: var(--accent); font-weight: 600; font-size: var(--step--1);
+  letter-spacing: .09em; text-transform: uppercase; margin-top: 8px;
+}
+.rail-blurb { color: var(--text-muted); font-size: var(--step--1); margin-top: 12px; }
+
+.availability {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--step--2); font-weight: 600; color: var(--accent);
+  margin-top: 14px;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 0 currentColor; animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent); }
+  70%  { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Vertical nav with a sliding indicator on the left */
+.rail-nav { display: flex; flex-direction: column; gap: 1px; }
+.rail-nav a {
+  position: relative;
+  padding: 6px 0 6px 20px;
+  font-size: .93rem; font-weight: 500; color: var(--text-muted);
+  transition: color .2s ease, padding-left .2s ease;
+}
+.rail-nav a::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 10px; height: 2px; border-radius: 2px;
+  background: var(--line-strong);
+  transform: translateY(-50%);
+  transition: width .25s ease, background-color .25s ease;
+}
+.rail-nav a:hover { color: var(--text); padding-left: 26px; }
+/* .active is applied by the scroll-spy in JavaScript */
+.rail-nav a.active { color: var(--accent); font-weight: 650; padding-left: 30px; }
+.rail-nav a.active::before { width: 22px; background: var(--accent); }
+
+.rail-foot { margin-top: auto; display: flex; flex-direction: column; gap: 16px; }
+
+.socials { display: flex; gap: 8px; }
+.social {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border: 1px solid var(--line-strong); border-radius: 10px;
+  color: var(--text-muted);
+  transition: transform .2s ease, color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.social:hover {
+  transform: translateY(-2px);
+  color: var(--accent); border-color: var(--accent); background: var(--accent-wash);
+}
+
+.rail-copy { font-size: var(--step--2); color: var(--text-faint); }
+
+/* ==============================================================
+   4. BUTTONS
+   ============================================================== */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 12px 22px; border: 1px solid transparent; border-radius: 100px;
+  font-size: var(--step--1); font-weight: 600; cursor: pointer;
+  transition: transform .18s ease, background-color .2s ease,
+              border-color .2s ease, box-shadow .2s ease, color .2s ease;
+}
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--accent-hover); box-shadow: var(--shadow-md); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.theme-btn {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: var(--bg-elevated); border: 1px solid var(--line-strong);
+  border-radius: 10px; cursor: pointer; color: var(--text-muted);
+  transition: color .2s ease, border-color .2s ease;
+}
+.theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ==============================================================
+   5. SECTIONS
+   ============================================================== */
+
+.sec {
+  padding-block: clamp(56px, 7vw, 96px);
+  scroll-margin-top: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.sec:last-of-type { border-bottom: 0; }
+#intro { padding-top: clamp(48px, 7vw, 90px); }
+
+.sec-head { margin-bottom: 34px; }
+.eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: var(--step--2); font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.eyebrow::after {
+  content: ""; flex: 1; height: 1px; background: var(--line); max-width: 90px;
+}
+.sec-sub { color: var(--text-muted); margin-top: 12px; max-width: 62ch; }
+.prose { max-width: 66ch; }
+.prose p + p { margin-top: 15px; }
+.prose p { color: var(--text-muted); }
+.prose strong { color: var(--text); font-weight: 650; }
+
+/* ---- Intro stat strip ---- */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px; margin-top: 36px;
+  background: var(--line); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+}
+.stat { background: var(--bg); padding: 18px 20px; }
+.stat-num {
+  font-size: var(--step-2); font-weight: 700; letter-spacing: -.03em;
+  line-height: 1.1; color: var(--accent);
+}
+.stat-label {
+  font-size: var(--step--2); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .08em; margin-top: 3px;
+}
+
+/* ==============================================================
+   6. WORK ENTRIES (apps, sites, platforms)
+   One reusable "entry" component used by three sections.
+   ============================================================== */
+
+.entry {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr);
+  gap: 20px; padding: 24px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.entry + .entry { margin-top: 16px; }
+.entry:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: var(--shadow-md);
+}
+
+/* The square monogram tile at the left of each entry */
+.entry-mark {
+  width: 54px; height: 54px; border-radius: 13px;
+  display: grid; place-items: center;
+  font-size: .82rem; font-weight: 750; letter-spacing: -.01em;
+  color: #fff; text-align: center; line-height: 1.05;
+}
+.m-eiiet { background: linear-gradient(140deg, #0f766e, #134e6f); }
+.m-eaas  { background: linear-gradient(140deg, #1e40af, #0ea5e9); }
+.m-crm   { background: linear-gradient(140deg, #b45309, #9f1239); }
+.m-fmszn { background: linear-gradient(140deg, #065f46, #0f766e); }
+.m-edu3  { background: linear-gradient(140deg, #6d28d9, #2563eb); }
+.m-web   { background: linear-gradient(140deg, #475569, #1e293b); }
+.m-lms   { background: linear-gradient(140deg, #0891b2, #065f46); }
+.m-sprout{ background: linear-gradient(140deg, #15803d, #65a30d); }
+
+.entry-top {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 8px 12px; margin-bottom: 8px;
+}
+.entry-top h3 { font-size: var(--step-1); }
+.entry p { color: var(--text-muted); font-size: .95rem; }
+
+/* Small pills used for platform / status labels */
+.pill {
+  padding: 3px 10px; border-radius: 100px;
+  font-size: var(--step--2); font-weight: 650;
+  letter-spacing: .03em; white-space: nowrap;
+}
+.pill-live  { background: var(--accent-wash); color: var(--accent); }
+.pill-built { background: var(--gold-wash);  color: var(--gold); }
+.pill-plain { background: var(--bg-sunken); color: var(--text-faint); border: 1px solid var(--line); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 13px; }
+.tags li {
+  padding: 3px 10px; border-radius: 6px;
+  background: var(--bg-sunken); border: 1px solid var(--line);
+  font-size: var(--step--2); color: var(--text-faint); font-weight: 500;
+}
+
+.links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.links a {
+  font-size: var(--step--1); font-weight: 650; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- Expandable page list (native <details>, no JavaScript) ---- */
+.pages { margin-top: 15px; border-top: 1px dashed var(--line); padding-top: 13px; }
+.pages summary {
+  cursor: pointer; list-style: none;
+  font-size: var(--step--1); font-weight: 650; color: var(--text);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.pages summary::-webkit-details-marker { display: none; }
+.pages summary::before {
+  content: "▸"; color: var(--accent);
+  transition: transform .2s ease; display: inline-block;
+}
+.pages[open] summary::before { transform: rotate(90deg); }
+.pages summary:hover { color: var(--accent); }
+
+.page-list { margin-top: 13px; display: grid; gap: 9px; }
+.page-list li {
+  font-size: var(--step--1); color: var(--text-muted);
+  padding-left: 15px; position: relative; line-height: 1.55;
+}
+.page-list li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong);
+}
+.page-list a {
+  color: var(--text); font-weight: 550;
+  border-bottom: 1px solid var(--line-strong);
+  /* long slugs must wrap instead of forcing the page sideways */
+  overflow-wrap: anywhere;
+}
+.page-list a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.page-list .note { color: var(--text-faint); }
+
+/* ==============================================================
+   7. SKILLS
+   ============================================================== */
+
+.skill-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.skill-card {
+  padding: 22px; background: var(--bg-elevated);
+  border: 1px solid var(--line); border-radius: var(--radius);
+}
+.skill-card h3 {
+  font-size: var(--step--1); text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-faint); margin-bottom: 14px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  padding: 5px 12px; border-radius: 100px;
+  background: var(--bg-sunken); border: 1px solid var(--line);
+  font-size: var(--step--1); font-weight: 500; color: var(--text-muted);
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-wash); }
+
+/* ==============================================================
+   8. TIMELINE (experience + education)
+   ============================================================== */
+
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+  content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--line); border-radius: 2px;
+}
+.tl-item { position: relative; padding-bottom: 34px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before {
+  content: ""; position: absolute; left: -30px; top: 6px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--accent);
+  transition: transform .25s ease;
+}
+.tl-item:hover::before { transform: scale(1.2); }
+.tl-date {
+  display: inline-block; font-size: var(--step--2); font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 6px;
+}
+.tl-item h3 { margin-bottom: 2px; }
+.tl-org { color: var(--text-muted); font-size: var(--step--1); margin-bottom: 12px; }
+.tl-item ul { display: grid; gap: 8px; }
+.tl-item li {
+  color: var(--text-muted); font-size: .95rem;
+  padding-left: 16px; position: relative;
+}
+.tl-item li::before {
+  content: ""; position: absolute; left: 0; top: .65em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+}
+.tl-item strong { color: var(--text); font-weight: 650; }
+
+/* ==============================================================
+   9. CONTACT
+   ============================================================== */
+
+.contact-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px; align-items: start; }
+
+.contact-line { display: flex; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.contact-line:last-of-type { border-bottom: 0; }
+.icon-wrap {
+  width: 38px; height: 38px; flex: none; display: grid; place-items: center;
+  background: var(--accent-wash); color: var(--accent); border-radius: 10px;
+}
+.contact-line .k {
+  font-size: var(--step--2); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.contact-line .v { font-weight: 600; }
+.contact-line a.v:hover { color: var(--accent); }
+
+/* ---- WhatsApp panel (replaced the old contact form) ----
+   WhatsApp brand green is hard-coded rather than themed, because a
+   recognisable brand colour is the whole point of the button. */
+.wa-card {
+  position: relative; overflow: hidden;
+  padding: 32px 26px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+/* Soft green glow so the panel reads as the page's primary action */
+.wa-card::before {
+  content: ""; position: absolute; inset: -50% 20% auto -25%; height: 220px;
+  background: radial-gradient(circle, #25d366 0%, transparent 70%);
+  opacity: .14; pointer-events: none;
+}
+.wa-glyph {
+  position: relative;
+  width: 58px; height: 58px; margin: 0 auto 18px;
+  display: grid; place-items: center;
+  border-radius: 17px;
+  background: #25d366; color: #fff;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, .32);
+}
+.wa-card h3 { position: relative; margin-bottom: 10px; }
+.wa-card p {
+  position: relative;
+  color: var(--text-muted); font-size: .95rem;
+  max-width: 40ch; margin-inline: auto;
+}
+.btn-wa {
+  position: relative;
+  width: 100%; margin-top: 22px;
+  background: #25d366; color: #05271a;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, .28);
+}
+.btn-wa:hover { background: #1eb757; box-shadow: 0 11px 26px rgba(37, 211, 102, .36); }
+.wa-alt { position: relative; margin-top: 15px; font-size: var(--step--2); color: var(--text-faint); }
+.wa-alt a { color: var(--accent); font-weight: 650; }
+.wa-alt a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.page-foot {
+  padding: 28px 0 44px;
+  color: var(--text-faint); font-size: var(--step--1);
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+}
+.page-foot a:hover { color: var(--accent); }
+
+/* ==============================================================
+   10. SCROLL REVEAL
+   Elements start faded + nudged down; JS adds .is-visible.
+   ============================================================== */
+
+.reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal[data-delay="1"] { transition-delay: .07s; }
+.reveal[data-delay="2"] { transition-delay: .14s; }
+.reveal[data-delay="3"] { transition-delay: .21s; }
+
+/* ==============================================================
+   11. RESPONSIVE
+   Below 1024px the rail stops being a sidebar and becomes a
+   header, with the nav turning into a fixed scrollable strip.
+   ============================================================== */
+
+/* The rail is constrained by HEIGHT, not width — on a short laptop
+   screen it would need an internal scrollbar. These two queries trim
+   it to fit so the CV button stays visible without scrolling. */
+@media (min-width: 1024px) and (max-height: 900px) {
+  .rail { gap: 16px; padding-block: 26px; }
+  .rail-blurb { display: none; }        /* the intro section says the same thing */
+}
+@media (min-width: 1024px) and (max-height: 780px) {
+  .portrait { max-width: 148px; }
+  .rail-nav a { padding-block: 4px; }
+  .rail-name { font-size: 1.35rem; }
+}
+
+@media (max-width: 1023px) {
+  /* The nav strip below is position:fixed, so the page needs to start
+     underneath it. This is the space it occupies. */
+  body { padding-top: 53px; }
+
+  .shell { grid-template-columns: 1fr; }
+
+  .rail {
+    position: static; height: auto; overflow: visible;
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas:
+      "photo  who"
+      "foot   foot";
+    gap: 22px 24px;
+    align-items: center;
+    padding: 28px clamp(22px, 4vw, 40px);
+    border-right: 0; border-bottom: 1px solid var(--line);
+  }
+  .portrait  { grid-area: photo; width: 116px; max-width: 116px; }
+  .rail-who  { grid-area: who; }
+  .rail-foot { grid-area: foot; margin-top: 0; flex-direction: row;
+               align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .rail-name { font-size: 1.35rem; }
+  .rail-blurb { display: none; }          /* the intro section repeats it anyway */
+
+  /* The nav becomes a horizontal swipeable strip pinned to the top.
+     It must be FIXED, not sticky — sticky would only hold while its
+     parent (.rail) is on screen, so it would scroll away with the header. */
+  .rail-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    flex-direction: row; gap: 6px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding: 9px clamp(22px, 4vw, 40px);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .rail-nav::-webkit-scrollbar { display: none; }
+  .rail-nav a {
+    padding: 6px 14px; white-space: nowrap;
+    border: 1px solid var(--line); border-radius: 100px;
+  }
+  .rail-nav a::before { display: none; }
+  /* Override the desktop hover/active padding shift — it would make the
+     chips jitter sideways as you scroll through sections. */
+  .rail-nav a:hover,
+  .rail-nav a.active { padding: 6px 14px; }
+  .rail-nav a.active { background: var(--accent-wash); border-color: var(--accent); }
+
+  .sec { scroll-margin-top: 62px; }       /* clear the fixed nav strip */
+}
+
+@media (max-width: 720px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+  .entry { grid-template-columns: 1fr; gap: 14px; }
+  .entry-mark { width: 46px; height: 46px; }
+}
+
+@media (max-width: 480px) {
+  .rail {
+    grid-template-columns: 1fr;
+    grid-template-areas: "photo" "who" "foot";
+    justify-items: start;
+  }
+  .page-foot { justify-content: flex-start; }
+}
+
+/* ==============================================================
+   12. ACCESSIBILITY + PRINT
+   ============================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+@media print {
+  /* .wa-card is hidden because the number already prints in the contact list */
+  .rail-nav, .socials, .theme-btn, .wa-card, .availability, .page-foot a { display: none !important; }
+  body { background: #fff; color: #000; padding-top: 0; }
+  .shell { grid-template-columns: 1fr; max-width: none; }
+  .rail {
+    position: static; height: auto; overflow: visible; border: 0;
+    background: none; padding: 0 0 18px;
+    display: grid; grid-template-columns: 90px 1fr; gap: 18px; align-items: center;
+  }
+  .portrait { width: 90px; max-width: 90px; }
+  .content { padding: 0; }
+  .sec { padding-block: 16px; page-break-inside: avoid; border-color: #ccc; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .entry { break-inside: avoid; box-shadow: none; }
+
+  /* Expand every collapsed page list so a printed copy shows the full
+     body of work rather than a row of "See the pages" links. */
+  details.pages > *:not(summary) { display: block !important; }
+  .pages summary { list-style: none; }
+  .pages summary::before { content: ""; }
+}
+</style>
+</head>
+
+<body>
+
+<a href="#intro" class="sr-only skip-link">Skip to content</a>
+
+<div class="shell">
+
+<!-- ==============================================================
+     LEFT RAIL — sticky on desktop, a header block on mobile
+     ============================================================== -->
+<aside class="rail">
+
+  <!-- Photo. Source file is 268x322, so it is never displayed larger
+       than that — upscaling a small image is what makes portfolios
+       look soft. Swap in a bigger file and raise .portrait max-width. -->
+  <div class="portrait">
+    <img src="assets/diksha.png" alt="Portrait of Diksha Themnuhang" width="268" height="322">
+  </div>
+
+  <div class="rail-who">
+    <h1 class="rail-name">Diksha<br>Themnuhang</h1>
+    <p class="rail-role">App &amp; Web Developer</p>
+    <p class="rail-blurb">
+      I build mobile apps, the websites around them, and the e-learning
+      platforms underneath.
+    </p>
+    <p class="availability"><span class="dot"></span> Open to new opportunities</p>
+  </div>
+
+  <!-- Nav. Each href matches a section id below; the scroll-spy in
+       JavaScript adds .active to whichever one is on screen. -->
+  <nav class="rail-nav" id="railNav" aria-label="Sections">
+    <a href="#intro">Intro</a>
+    <a href="#apps">Apps</a>
+    <a href="#websites">Websites</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="rail-foot">
+    <!-- EDIT: replace the two # links with your real profile URLs -->
+    <div class="socials">
+      <a class="social" href="#" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .5A11.5 11.5 0 00.5 12a11.5 11.5 0 007.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 015.8 0C17.1 4.6 18.1 5 18.1 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/>
+        </svg>
+      </a>
+      <a class="social" href="https://www.linkedin.com/in/dik-shya-87674828b/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 002.48 2.5A2.5 2.5 0 007.5 6a2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM9.5 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.6c0-1.34-.02-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21h-4z"/>
+        </svg>
+      </a>
+      <a class="social" href="mailto:raidikshya869@gmail.com" aria-label="Email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2.5 6.5l9.5 7 9.5-7"/>
+        </svg>
+      </a>
+
+      <button class="theme-btn" id="themeToggle" aria-label="Switch colour theme">
+        <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"></svg>
+      </button>
+    </div>
+
+    <!-- EDIT: save your CV as assets/Diksha-Themnuhang-CV.pdf for this to work -->
+    <a href="assets/Diksha-Themnuhang-CV.pdf" download class="btn btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v13M6 11l6 6 6-6M4 21h16"/>
+      </svg>
+      Download CV
+    </a>
+
+    <p class="rail-copy">© <span id="year">2026</span> Diksha Themnuhang</p>
+  </div>
+</aside>
+
+<!-- ==============================================================
+     RIGHT COLUMN — all the content
+     ============================================================== -->
+<main class="content">
+
+<!-- ---------- INTRO ---------- -->
+<section class="sec" id="intro">
+  <div class="reveal">
+    <p class="eyebrow">Intro</p>
+    <h2>I build things people log into every day.</h2>
+  </div>
+
+  <div class="prose reveal" data-delay="1" style="margin-top:20px">
+    <!-- EDIT: this is your voice — rewrite freely, keep it short. -->
+    <p>
+      I'm a developer working across the whole stack of an education provider's
+      digital estate: the <strong>mobile apps</strong> students carry, the
+      <strong>websites</strong> that bring them in, and the
+      <strong>Moodle e-learning platforms</strong> that everything talks to —
+      including course content, teacher accounts and the data behind them.
+    </p>
+    <p>
+      That range is deliberate. Because I administer the learning platform, I know
+      exactly which web-service calls exist and how each feature really behaves — so
+      the apps I build mirror the real workflow instead of guessing at it. And because
+      I write the marketing pages too, the story a student reads before applying matches
+      the product they get afterwards.
+    </p>
+    <p>
+      Three apps are live across the App&nbsp;Store and Google&nbsp;Play. Two
+      institutional websites I built from an empty folder are serving real visitors.
+      The rest is the unglamorous part — testing APIs, chasing store rejections,
+      fixing the live-class settings that stop a lecture starting on time.
+    </p>
+  </div>
+
+  <div class="stats reveal" data-delay="2">
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Apps shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Store listings</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Sites from scratch</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Pages built</div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- APPS ---------- -->
+<section class="sec" id="apps">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Apps</p>
+    <h2>Three apps, five listings</h2>
+    <p class="sec-sub">
+      Three taken from an empty project to a public store listing — including
+      signing, data-safety declarations and review cycles — plus the university
+      project that started it.
+    </p>
+  </div>
+
+  <!-- My EIIET -->
+  <article class="entry reveal">
+    <div class="entry-mark m-eiiet">MY<br>EIIET</div>
+    <div>
+      <div class="entry-top">
+        <h3>My EIIET</h3>
+        <span class="pill pill-live">iOS + Android</span>
+      </div>
+      <p>
+        The student app for EIIET Germany, built on Moodle's web-service API with a
+        Supabase backend. Courses and assignments, a calendar with local reminders,
+        live class joining, an AI study assistant, push notifications that deep-link
+        to the right screen, and an in-app support desk that files real tickets
+        straight into staff's CRM.
+      </p>
+      <ul class="tags">
+        <li>Flutter</li><li>Supabase</li><li>Moodle WS</li><li>FCM + OneSignal</li><li>Edge Functions</li>
+      </ul>
+      <div class="links">
+        <a href="https://apps.apple.com/app/id6759371426" target="_blank" rel="noopener">App Store ↗</a>
+        <a href="https://play.google.com/store/apps/details?id=com.my.eiiet.student" target="_blank" rel="noopener">Google Play ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- My EAAS -->
+  <article class="entry reveal" data-delay="1">
+    <div class="entry-mark m-eaas">MY<br>EAAS</div>
+    <div>
+      <div class="entry-top">
+        <h3>My EAAS</h3>
+        <span class="pill pill-live">iOS + Android</span>
+      </div>
+      <p>
+        The same idea for a second institution and a second Moodle server. Where the
+        stock experience drops students into a web view, I built native screens
+        instead — choice, glossary, survey, wiki, feedback, database, workshop, forum
+        and self-marked attendance — plus a redesigned course-content view with
+        section tabs and a course map.
+      </p>
+      <ul class="tags">
+        <li>Flutter</li><li>Moodle WS</li><li>Native activity screens</li><li>iOS</li><li>Android</li>
+      </ul>
+      <div class="links">
+        <a href="https://apps.apple.com/app/id6788634684" target="_blank" rel="noopener">App Store ↗</a>
+        <a href="https://play.google.com/store/apps/details?id=com.my.eaas.student" target="_blank" rel="noopener">Google Play ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- EIIET CRM -->
+  <article class="entry reveal" data-delay="2">
+    <div class="entry-mark m-crm">EIIET<br>CRM</div>
+    <div>
+      <div class="entry-top">
+        <h3>EIIET CRM</h3>
+        <span class="pill pill-live">Android</span>
+        <span class="pill pill-plain">iOS in progress</span>
+      </div>
+      <p>
+        A staff app for the in-house CRM, with separate counsellor and partner roles —
+        leads, applications, documents, tasks and commissions. The dashboard used to
+        take about ten seconds to open because the phone downloaded every lead just to
+        count them; moving the aggregation into an edge function and painting the UI
+        shell first brought that down to roughly one.
+      </p>
+      <ul class="tags">
+        <li>Flutter</li><li>Deno / TypeScript</li><li>REST</li><li>Performance</li>
+      </ul>
+      <div class="links">
+        <a href="https://play.google.com/store/apps/details?id=com.eiiet.crm" target="_blank" rel="noopener">Google Play ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- LilSprout — university final-year project. Deliberately labelled as a
+       project, not a shipped app, so the "three apps" claim stays honest.
+       EDIT: if you have screenshots, this is the card that most benefits
+       from them — nobody can download it to see for themselves. -->
+  <article class="entry reveal" data-delay="3">
+    <div class="entry-mark m-sprout">LIL<br>SPROUT</div>
+    <div>
+      <div class="entry-top">
+        <h3>LilSprout</h3>
+        <span class="pill pill-built">Final-year project</span>
+        <span class="pill pill-plain">Works offline</span>
+      </div>
+      <p>
+        An offline learning app for young children, built as my BSc final-year project.
+        The premise: children are going to be on a screen either way, so the useful
+        question isn't how to take the phone away — it's how to make the time on it
+        count. LilSprout borrows the shape of the games kids already choose, and puts
+        learning inside it.
+      </p>
+      <p style="margin-top:10px">
+        Everything runs with no internet connection, which matters in a country where
+        a lot of households don't have reliable data — the learning shouldn't stop
+        when the connection does.
+      </p>
+      <ul class="tags">
+        <li>Flutter</li><li>Offline-first</li><li>Local storage</li><li>Gamified learning</li><li>Early-years UX</li>
+      </ul>
+    </div>
+  </article>
+</section>
+
+<!-- ---------- WEBSITES ---------- -->
+<section class="sec" id="websites">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Websites</p>
+    <h2>Built from scratch, and at scale</h2>
+    <p class="sec-sub">
+      Two institutional sites designed and built from an empty folder, plus sustained
+      work across two more — pages, rebuilds, and the copy and QA that go with them.
+    </p>
+  </div>
+
+  <!-- FMSZN -->
+  <article class="entry reveal">
+    <div class="entry-mark m-fmszn">FM<br>SZN</div>
+    <div>
+      <div class="entry-top">
+        <h3>fmszn.me</h3>
+        <span class="pill pill-built">Built from scratch</span>
+      </div>
+      <p>
+        The website for the Faculty of Medicine and Allied Health Sciences in
+        Podgorica, Montenegro — a new medical school currently going through national
+        accreditation. Programme pages for the six-year integrated MD (360 ECTS),
+        institutional pages covering mission and standards alignment, and a
+        register-your-interest path for applicants while admissions are still closed.
+      </p>
+      <ul class="tags">
+        <li>WordPress</li><li>HTML/CSS</li><li>Information architecture</li><li>Copy</li>
+      </ul>
+      <div class="links">
+        <a href="https://fmszn.me" target="_blank" rel="noopener">fmszn.me ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- edu3.net -->
+  <article class="entry reveal" data-delay="1">
+    <div class="entry-mark m-edu3">EDU<br>NET</div>
+    <div>
+      <div class="entry-top">
+        <h3>edu3.net</h3>
+        <span class="pill pill-built">Built from scratch</span>
+      </div>
+      <p>
+        Edu.net, EIIET Germany's official support and coordination hub in Nepal.
+        A dual-audience site: students browse Bachelor's and Master's programmes in
+        Germany and France and follow a counselling-to-visa service path, while
+        education consultancies are funnelled into a partnership application.
+      </p>
+      <ul class="tags">
+        <li>WordPress</li><li>HTML/CSS</li><li>Lead capture</li><li>Multi-audience UX</li>
+      </ul>
+      <div class="links">
+        <a href="https://edu3.net" target="_blank" rel="noopener">edu3.net ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- eiiet.com -->
+  <article class="entry reveal" data-delay="2">
+    <div class="entry-mark m-web">EIIET<br>COM</div>
+    <div>
+      <div class="entry-top">
+        <h3>eiiet.com</h3>
+        <span class="pill pill-plain">Ongoing · 15+ pages</span>
+      </div>
+      <p>
+        The institution's main site. I built the campus and programme pages from
+        scratch, rebuilt the gallery interface end to end, and maintain the team page —
+        which means not just markup but writing and checking the copy: originality,
+        AI-detection, grammar, layout and imagery, over and over as staff change.
+      </p>
+
+      <!-- <details> gives a native expander with zero JavaScript -->
+      <details class="pages">
+        <summary>See the pages</summary>
+        <ul class="page-list">
+          <li>
+            <strong>Campus pages, from scratch</strong> —
+            <a href="https://eiiet.com/eiiet-campus/" target="_blank" rel="noopener">EIIET Campus</a>,
+            <a href="https://eiiet.com/hamburg-campus/" target="_blank" rel="noopener">Hamburg</a>,
+            <a href="https://eiiet.com/potsdam-campus/" target="_blank" rel="noopener">Potsdam</a>,
+            <a href="https://eiiet.com/bagnolet-campus/" target="_blank" rel="noopener">Bagnolet</a>
+            <span class="note">— plus every programme page under Hamburg, Potsdam and Bagnolet.</span>
+          </li>
+          <li>
+            <strong>Gallery, completely rebuilt</strong> —
+            <a href="https://eiiet.com/gallery/" target="_blank" rel="noopener">eiiet.com/gallery</a>
+            <span class="note">— the whole interface redesigned and reimplemented.</span>
+          </li>
+          <li>
+            <strong>Bagnolet admissions, from scratch</strong> —
+            <a href="https://eiiet.com/admission-bagnolet/" target="_blank" rel="noopener">eiiet.com/admission-bagnolet</a>
+            <span class="note">— interface and copy both.</span>
+          </li>
+          <li>
+            <strong>Guest lecture features, from scratch</strong> —
+            <a href="https://eiiet.com/european-funds-as-a-catalyst-for-tourism-development-a-guest-lecture-by-dr-laurentiu-petrila-at-eiiet/" target="_blank" rel="noopener">Dr Laurentiu Petrila on European funds &amp; tourism</a>;
+            <a href="https://eiiet.com/lecture-on-web-scraping-sentiment-analysis-for-tourism-data-by-dr-sofia-blanco-moreno-assistant-professor-consumer-behaviour-marketing/" target="_blank" rel="noopener">Dr Sofia Blanco Moreno on web scraping &amp; sentiment analysis</a>
+          </li>
+          <li>
+            <strong>Team page, maintained continuously</strong> —
+            <a href="https://eiiet.com/our-team/" target="_blank" rel="noopener">eiiet.com/our-team</a>
+            <span class="note">— new and updated staff profiles, with every bio checked for originality, AI detection, grammar, layout and imagery.</span>
+          </li>
+          <li>
+            <strong>Support &amp; product pages</strong> —
+            <a href="https://eiiet.com/user-manual/" target="_blank" rel="noopener">User Manual</a>,
+            <a href="https://eiiet.com/app/" target="_blank" rel="noopener">App landing page</a>,
+            <a href="https://eiiet.com/landing-page/" target="_blank" rel="noopener">Meta Ads landing page</a>
+          </li>
+          <li>
+            <strong>Site-wide review</strong>
+            <span class="note">— audited and corrected content, layout and links across the rest of the site.</span>
+          </li>
+        </ul>
+      </details>
+    </div>
+  </article>
+
+  <!-- eaas.mt -->
+  <article class="entry reveal" data-delay="3">
+    <div class="entry-mark m-web">EAAS<br>MT</div>
+    <div>
+      <div class="entry-top">
+        <h3>eaas.mt</h3>
+        <span class="pill pill-plain">Ongoing · 12+ pages</span>
+      </div>
+      <p>
+        The second institution's site. I built its core institutional and admissions
+        pages from scratch, and designed the entire Downloads section — the category
+        itself plus every document page inside it, including a policy library prepared
+        for an accreditation review.
+      </p>
+
+      <details class="pages">
+        <summary>See the pages</summary>
+        <ul class="page-list">
+          <li>
+            <strong>Institutional pages, from scratch</strong> —
+            <a href="https://eaas.mt/mission-and-vision/" target="_blank" rel="noopener">Mission &amp; Vision</a>,
+            <a href="https://eaas.mt/why-choose-eaas/" target="_blank" rel="noopener">Why Choose EAAS</a>,
+            <a href="https://eaas.mt/our-team/" target="_blank" rel="noopener">Our Team</a>
+          </li>
+          <li>
+            <strong>Programmes &amp; admissions, from scratch</strong> —
+            <a href="https://eaas.mt/programmes/" target="_blank" rel="noopener">Programmes</a>,
+            <a href="https://eaas.mt/programmes/ba-hons-in-tourism-hospitality-management/" target="_blank" rel="noopener">BA (Hons) Tourism &amp; Hospitality Management</a>,
+            <a href="https://eaas.mt/admission/" target="_blank" rel="noopener">Admission</a>
+          </li>
+          <li>
+            <strong>Downloads section, built end to end</strong> —
+            <a href="https://eaas.mt/category/download/" target="_blank" rel="noopener">the category</a> and every page in it:
+            <a href="https://eaas.mt/manual-and-handbook/" target="_blank" rel="noopener">Manuals &amp; Handbooks</a>,
+            <a href="https://eaas.mt/institutional-policy/" target="_blank" rel="noopener">Institutional Policy</a>,
+            <a href="https://eaas.mt/presentation-template-for-eaas/" target="_blank" rel="noopener">Presentation Templates</a>,
+            <a href="https://eaas.mt/logo/" target="_blank" rel="noopener">Logo &amp; brand assets</a>,
+            <a href="https://eaas.mt/app/" target="_blank" rel="noopener">App landing page</a>
+          </li>
+          <li>
+            <strong>Policy library</strong>
+            <span class="note">— a searchable, sortable index of 22 institutional policies, built for an accreditation submission.</span>
+          </li>
+        </ul>
+      </details>
+    </div>
+  </article>
+</section>
+
+<!-- ---------- PLATFORMS ---------- -->
+<section class="sec" id="platforms">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Platforms</p>
+    <h2>The Moodle underneath</h2>
+    <p class="sec-sub">
+      Both apps talk to a Moodle server. I administer those servers too — which is
+      why the apps behave like the real thing rather than an approximation of it.
+    </p>
+  </div>
+
+  <article class="entry reveal">
+    <div class="entry-mark m-lms">MY<br>EIIET</div>
+    <div>
+      <div class="entry-top">
+        <h3>my.eiiet.com</h3>
+        <span class="pill pill-plain">Moodle · LMS</span>
+      </div>
+      <p>
+        Went through the platform feature by feature — reading the web-service surface,
+        testing each API, and mapping how every workflow actually runs — so the mobile
+        app could be architected along the same flow instead of a guessed one. Alongside
+        that, fixed a long run of student-facing bugs, including the BigBlueButton
+        live-class configuration that was stopping lectures from starting cleanly.
+      </p>
+      <ul class="tags">
+        <li>Moodle administration</li><li>Web services / API testing</li><li>BigBlueButton</li><li>Bug triage</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="entry reveal" data-delay="1">
+    <div class="entry-mark m-lms">MY<br>EAAS</div>
+    <div>
+      <div class="entry-top">
+        <h3>my.eaas.mt</h3>
+        <span class="pill pill-plain">Moodle · LMS</span>
+      </div>
+      <p>
+        Built out the EAAS student portal: loaded the course materials students
+        actually need — assignments, slide decks and supporting documents — created and
+        configured teacher accounts and permissions, then repeated the app-integration
+        work so My EAAS could run against it.
+      </p>
+      <ul class="tags">
+        <li>Moodle administration</li><li>Course setup</li><li>Roles &amp; permissions</li><li>Content loading</li>
+      </ul>
+    </div>
+  </article>
+</section>
+
+<!-- ---------- SKILLS ---------- -->
+<section class="sec" id="skills">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Skills</p>
+    <h2>What I work with</h2>
+    <p class="sec-sub">The tools I use regularly — not everything I've ever opened.</p>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill-card reveal">
+      <h3>Mobile</h3>
+      <ul class="chips">
+        <li class="chip">Flutter</li><li class="chip">Dart</li><li class="chip">FlutterFlow</li>
+        <li class="chip">Android / Gradle</li><li class="chip">iOS / Xcode</li>
+        <li class="chip">Push notifications</li><li class="chip">Keystore signing</li>
+        <li class="chip">Play Console</li><li class="chip">App Store Connect</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal" data-delay="1">
+      <h3>Web</h3>
+      <ul class="chips">
+        <li class="chip">HTML5</li><li class="chip">CSS3</li><li class="chip">JavaScript</li>
+        <li class="chip">Responsive design</li><li class="chip">WordPress</li>
+        <li class="chip">BeTheme / BeBuilder</li><li class="chip">SEO basics</li>
+        <li class="chip">Accessibility basics</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal" data-delay="2">
+      <h3>Backend &amp; Platforms</h3>
+      <ul class="chips">
+        <li class="chip">Supabase</li><li class="chip">PostgreSQL</li>
+        <li class="chip">Edge Functions (Deno/TS)</li><li class="chip">REST APIs</li>
+        <li class="chip">Moodle administration</li><li class="chip">Moodle Web Services</li>
+        <li class="chip">BigBlueButton</li><li class="chip">Firebase / FCM</li>
+        <li class="chip">OneSignal</li><li class="chip">Row-level security</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal" data-delay="3">
+      <h3>Tools &amp; Practice</h3>
+      <ul class="chips">
+        <li class="chip">Git</li><li class="chip">VS Code</li><li class="chip">Android Studio</li>
+        <li class="chip">PowerShell</li><li class="chip">adb / logcat</li>
+        <li class="chip">On-device debugging</li><li class="chip">Release management</li>
+        <li class="chip">Content QA</li>
+      </ul>
+    </div>
+
+    <div class="skill-card reveal">
+      <h3>Currently learning</h3>
+      <ul class="chips">
+        <li class="chip">Python</li><li class="chip">Machine learning</li>
+        <li class="chip">Neural networks</li><li class="chip">Data structures</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- EXPERIENCE ---------- -->
+<section class="sec" id="experience">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Experience</p>
+    <h2>Where I've worked</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <span class="tl-date">October 2025 — Present</span>
+      <h3>App &amp; Web Developer</h3>
+      <p class="tl-org">EIIET</p>
+      <ul>
+        <li>Shipped <strong>three Flutter apps across five store listings</strong>, owning each one from first screen to public release — signing keystores, data-safety declarations, store listings and review cycles included.</li>
+        <li>Built the backend behind them on Supabase: Postgres schemas, row-level security, and TypeScript edge functions brokering between the apps, Moodle and the CRM.</li>
+        <li>Cut a CRM dashboard's cold load from <strong>~10 seconds to ~1 second</strong> by moving aggregation server-side and rendering the UI shell before data arrives.</li>
+        <li>Built a hybrid FCM + OneSignal push system whose deep links still land on the right screen when the app was closed as the message arrived.</li>
+        <li>Replaced Moodle web-view fallbacks with <strong>native screens for 9+ activity types</strong> — choice, glossary, survey, wiki, feedback, database, workshop, forum and attendance.</li>
+        <li>Designed and built <strong>two institutional websites from scratch</strong> (fmszn.me, edu3.net) and <strong>25+ pages</strong> across eiiet.com and eaas.mt, including a full gallery rebuild and a complete downloads section.</li>
+        <li>Administered two Moodle servers — mapping the web-service surface that the apps depend on, configuring courses, teacher accounts and permissions, and fixing student-facing bugs including BigBlueButton live classes.</li>
+        <li>Moved privileged API calls out of a shipped client and behind a server-side function that derives the acting user from a validated token, then verified the rebuilt binary to confirm it.</li>
+        <li>Delivered an enforced Google Play API-level migration for both student apps a month ahead of deadline.</li>
+      </ul>
+    </div>
+
+    <!-- EDIT: add the year and duration of the internship.
+         Deliberately NOT hyperlinked — plussizenepal.com no longer resolves
+         (the domain has lapsed), and a dead link on a portfolio is worse
+         than none. If the business moved to a new domain or trades on
+         social media now, link that instead. -->
+    <div class="tl-item reveal" data-delay="1">
+      <span class="tl-date">Dec 2024 — Mar 2025</span>
+      <h3>E-Commerce Intern</h3>
+      <p class="tl-org">Plus Size Nepal · Kathmandu</p>
+      <ul>
+        <li>Built and maintained the product catalogue for an online clothing retailer — listings, descriptions, images, categories and pricing.</li>
+        <li>Tracked and reconciled stock in the company's inventory system, keeping what the storefront advertised in line with what was actually in stock.</li>
+        <li>Completed in the final year of my degree, and my first hands-on lesson in something the rest of my work keeps returning to: a system is only as good as whether its data still matches reality.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- EDUCATION ---------- -->
+<section class="sec" id="education">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Education</p>
+    <h2>Where I studied</h2>
+  </div>
+
+  <div class="timeline">
+    <!-- The BSc dates (2022-2025) are CONFIRMED by Diksha.
+         ⚠️ The two school entries below it are DERIVED from that anchor
+         (+2 in the two years before university, SEE in 2020) — check them
+         against the SEE marksheet and +2 transcript before sending this to
+         an employer. Dates that contradict your certificates look like
+         CV fraud even when they're just a bad memory. -->
+    <div class="tl-item reveal">
+      <span class="tl-date">2022 — 2025</span>
+      <h3>BSc (Hons) in Information Technology</h3>
+      <p class="tl-org">
+        LBEF Campus (Lord Buddha Education Foundation), Kathmandu ·
+        degree awarded by Asia Pacific University of Technology &amp; Innovation (APU), Malaysia
+      </p>
+      <ul>
+        <li>A UK-style honours IT degree delivered in Kathmandu under APU Malaysia, at Nepal's first IT college — approved by the Ministry of Education and recognised by Tribhuvan University.</li>
+        <li>Final examinations completed October 2025; degree conferred January 2026.</li>
+        <li>Final-year project: <strong>LilSprout</strong> — an offline learning app for children (see Apps above).</li>
+        <!-- EDIT: add your specialism if you had one (e.g. Cloud Computing)
+             and your classification/grade, if you want them shown. -->
+      </ul>
+    </div>
+
+    <div class="tl-item reveal" data-delay="1">
+      <span class="tl-date">2020 — 2022</span>
+      <h3>Higher Secondary (Class 11–12), Science</h3>
+      <p class="tl-org">Adarsha Higher Secondary School</p>
+      <ul>
+        <li>Science stream — physics, chemistry, mathematics and computer studies.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item reveal" data-delay="2">
+      <span class="tl-date">2008 — 2020</span>
+      <h3>Schooling, Nursery to Class 10 (SEE)</h3>
+      <p class="tl-org">Suryoday Shiksha Sadan · Mangalbare, Ilam</p>
+      <ul>
+        <li>Completed the full school cycle at one school, from nursery through to the School Education Examination.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item reveal" data-delay="3">
+      <span class="tl-date">2026 — Ongoing</span>
+      <h3>Self-directed study</h3>
+      <p class="tl-org">Python · Machine learning fundamentals</p>
+      <ul>
+        <li>Learning Python from first principles rather than by copy-paste — typing every exercise by hand.</li>
+        <li>Working up through neural networks and backpropagation toward building a small language model from scratch.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- CONTACT ---------- -->
+<section class="sec" id="contact">
+  <div class="sec-head reveal">
+    <p class="eyebrow">Contact</p>
+    <h2>Let's talk</h2>
+    <p class="sec-sub">A project, a role, or a question — I read everything that arrives.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-line">
+        <span class="icon-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2.5 6.5l9.5 7 9.5-7"/>
+          </svg>
+        </span>
+        <span>
+          <span class="k">Email</span><br>
+          <a class="v" href="mailto:raidikshya869@gmail.com">raidikshya869@gmail.com</a>
+        </span>
+      </div>
+
+      <div class="contact-line">
+        <span class="icon-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.19-.31a8.19 8.19 0 01-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.23 3.69 8.23 8.23 0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.56-1.35-.77-1.85-.17-.41-.35-.42-.48-.42h-.41c-.15 0-.38.05-.58.27-.2.22-.76.74-.76 1.8s.78 2.09.89 2.23c.11.15 1.52 2.33 3.69 3.27.51.22.92.36 1.23.46.52.16.99.14 1.36.09.41-.06 1.27-.52 1.45-1.02.18-.5.18-.93.13-1.02-.06-.09-.2-.15-.45-.27z"/>
+          </svg>
+        </span>
+        <span>
+          <span class="k">WhatsApp</span><br>
+          <!-- wa.me needs the number with country code and NO +, spaces or dashes -->
+          <a class="v" href="https://wa.me/9779842587018" target="_blank" rel="noopener">+977 984-258-7018</a>
+        </span>
+      </div>
+
+      <div class="contact-line">
+        <span class="icon-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </span>
+        <span>
+          <span class="k">Location</span><br>
+          <span class="v">Kathmandu, Nepal · open to remote</span>
+        </span>
+      </div>
+
+      <div class="contact-line">
+        <span class="icon-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+          </svg>
+        </span>
+        <span>
+          <span class="k">Response time</span><br>
+          <span class="v">Usually within 48 hours</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- WhatsApp panel, replacing the old contact form. A direct wa.me link
+         beats a form: no backend, no spam, and the message lands somewhere
+         you actually read. The ?text= parameter pre-fills the first message
+         so the visitor doesn't have to think of an opener. -->
+    <div class="wa-card reveal" data-delay="1">
+      <span class="wa-glyph" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.19-.31a8.19 8.19 0 01-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.23 3.69 8.23 8.23 0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.56-1.35-.77-1.85-.17-.41-.35-.42-.48-.42h-.41c-.15 0-.38.05-.58.27-.2.22-.76.74-.76 1.8s.78 2.09.89 2.23c.11.15 1.52 2.33 3.69 3.27.51.22.92.36 1.23.46.52.16.99.14 1.36.09.41-.06 1.27-.52 1.45-1.02.18-.5.18-.93.13-1.02-.06-.09-.2-.15-.45-.27z"/>
+        </svg>
+      </span>
+
+      <h3>Message me on WhatsApp</h3>
+      <p>
+        Quickest way to reach me — I'll usually reply the same day. Tell me who you
+        are and what you're working on, and we can take it from there.
+      </p>
+
+      <a class="btn btn-wa" href="https://wa.me/9779842587018?text=Hi%20Diksha%2C%20I%20found%20your%20portfolio%20and%20wanted%20to%20get%20in%20touch%20about%20" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.19-.31a8.19 8.19 0 01-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.23 3.69 8.23 8.23 0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.56-1.35-.77-1.85-.17-.41-.35-.42-.48-.42h-.41c-.15 0-.38.05-.58.27-.2.22-.76.74-.76 1.8s.78 2.09.89 2.23c.11.15 1.52 2.33 3.69 3.27.51.22.92.36 1.23.46.52.16.99.14 1.36.09.41-.06 1.27-.52 1.45-1.02.18-.5.18-.93.13-1.02-.06-.09-.2-.15-.45-.27z"/>
+        </svg>
+        Chat on WhatsApp
+      </a>
+
+      <p class="wa-alt">
+        Prefer email? <a href="mailto:raidikshya869@gmail.com">raidikshya869@gmail.com</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="page-foot">
+  <p>© <span id="yearFoot">2026</span> Diksha Themnuhang · Built by hand with HTML, CSS and JavaScript.</p>
+  <a href="#intro">Back to top ↑</a>
+</footer>
+
+</main>
+</div><!-- /.shell -->
+
+<script>
+/* ==============================================================
+   JAVASCRIPT — six independent features. Delete any block you
+   don't want; none of them depend on the others.
+   ============================================================== */
+
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------
+     1. THEME TOGGLE
+     Preference order: saved choice → OS setting → dark.
+     ------------------------------------------------------------ */
+  var root      = document.documentElement;
+  var themeBtn  = document.getElementById('themeToggle');
+  var themeIcon = document.getElementById('themeIcon');
+
+  var SUN  = '<circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/>';
+  var MOON = '<path d="M21 13.2A9 9 0 1110.8 3a7 7 0 1010.2 10.2z"/>';
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    themeIcon.innerHTML = (theme === 'dark') ? SUN : MOON;
+    themeBtn.setAttribute('aria-label',
+      theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) { /* private browsing */ }
+  applyTheme(saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+
+  themeBtn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+
+  /* ------------------------------------------------------------
+     2. SCROLL REVEAL
+     IntersectionObserver fires once per element, then stops
+     watching it — much cheaper than a scroll listener.
+     ------------------------------------------------------------ */
+  var revealItems = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealItems.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    revealItems.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+
+  /* ------------------------------------------------------------
+     3. SCROLL SPY
+     Highlights the rail link for whichever section is on screen,
+     and on mobile scrolls that chip into view in the strip.
+     ------------------------------------------------------------ */
+  var railNav  = document.getElementById('railNav');
+  var navAnchors = railNav.querySelectorAll('a');
+  var sections = document.querySelectorAll('.content section[id]');
+  var linkFor  = {};
+
+  navAnchors.forEach(function (a) { linkFor[a.getAttribute('href').slice(1)] = a; });
+
+  function setActive(link) {
+    navAnchors.forEach(function (a) { a.classList.remove('active'); });
+    link.classList.add('active');
+
+    // On the mobile strip, keep the active chip visible
+    if (railNav.scrollWidth > railNav.clientWidth) {
+      var target = link.offsetLeft - (railNav.clientWidth / 2) + (link.offsetWidth / 2);
+      railNav.scrollTo({ left: target, behavior: 'smooth' });
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = linkFor[entry.target.id];
+        if (link && entry.isIntersecting) setActive(link);
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+
+  /* ------------------------------------------------------------
+     4. CLOSE OTHER <details> WHEN ONE OPENS
+     Keeps the Websites section from becoming a wall of links.
+     ------------------------------------------------------------ */
+  var allDetails = document.querySelectorAll('details.pages');
+  allDetails.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (!d.open) return;
+      allDetails.forEach(function (other) { if (other !== d) other.open = false; });
+    });
+  });
+
+
+  /* ------------------------------------------------------------
+     5. FOOTER YEARS
+
+     NOTE: the contact-form validation that used to sit here has been
+     deleted, because the form was replaced by a direct wa.me link —
+     which needs no JavaScript at all. If you ever put the form back,
+     remember to guard it with `if (form) { ... }` so a missing form
+     can't throw and kill everything below it.
+     ------------------------------------------------------------ */
+  var y = new Date().getFullYear();
+  document.getElementById('year').textContent = y;
+  document.getElementById('yearFoot').textContent = y;
+
+})();
+</script>
+
+</body>
+</html>
